@@ -1,5 +1,7 @@
+## NOTE
+
 This is a project for FRI course Advanced Digital Graphics
-The basic framework is taken from a previously created project available at https://github.com/terier/vpt
+The basic framework is taken from a previously created project available at https://github.com/terier/vpt provided by the course teachers.
 
 # [VPT: The Volumetric Path Tracing Framework](http://lgm.fri.uni-lj.si/portfolio-view/volumetric-path-tracing-framework/)
 
