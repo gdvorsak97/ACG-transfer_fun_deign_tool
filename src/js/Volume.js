@@ -82,6 +82,7 @@ readModality(modalityName, handlers) {
                     blockdim.width, blockdim.height, blockdim.depth,
                     format, gl.UNSIGNED_BYTE, new Uint8Array(data));
                 remainingBlocks--;
+                console.log(data)
                 if (remainingBlocks === 0) {
                     this.ready = true;
                     handlers.onLoad && handlers.onLoad();
