@@ -114,8 +114,15 @@ readModality(modalityName, handlers) {
                         x: values.scalar,
                         y: values.gradient,
                         type: 'histogram2d'
+
                     }
                 ];
+                let d = document.createElement('div')
+                d.setAttribute("id","myDiv")
+                d.setAttribute("style", "width:305px;height:250px;")
+                d.style.cssFloat="left"
+                let elem = document.getElementsByClassName("selected")[1]
+                elem.appendChild(d)
                 Plotly.newPlot('myDiv', histData);
 
             }
