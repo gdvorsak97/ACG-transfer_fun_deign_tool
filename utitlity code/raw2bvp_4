@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+// works as /raw2bvp -w WIDTH -h HEIGHT -d DEPTH -g true < data.raw > data.bvp
+
 let inputDimensions = {
     width  : 0,
     height : 0,
