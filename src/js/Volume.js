@@ -106,25 +106,7 @@ readModality(modalityName, handlers) {
                     handlers.onLoad && handlers.onLoad();
                 }
                 let values = this.getValuesForHist(usedData)
-                console.log(values.gradient);
-                let hist = d3.histogram(values.scalar);
-                console.log(hist)
-                let histData = [
-                    {
-                        x: values.scalar,
-                        y: values.gradient,
-                        type: 'histogram2d'
-
-                    }
-                ];
-                let d = document.createElement('div')
-                d.setAttribute("id","myDiv")
-                d.setAttribute("style", "width:305px;height:250px;")
-                d.style.cssFloat="left"
-                let elem = document.getElementsByClassName("selected")[1]
-                elem.appendChild(d)
-                Plotly.newPlot('myDiv', histData);
-
+                this.addHistogram(values);
             }
         });
     });
@@ -150,4 +132,21 @@ setFilter(filter) {
     gl.texParameteri(gl.TEXTURE_3D, gl.TEXTURE_MAG_FILTER, filter);
 }
 
+    addHistogram(values) {
+        let histData = [
+            {
+                x: values.scalar,
+                y: values.gradient,
+                type: 'histogram2d'
+
+            }
+        ];
+        let d = document.createElement('div');
+        d.setAttribute("id","myDiv");
+        d.setAttribute("style", "width:305px;height:250px;");
+        d.style.cssFloat="left";
+        let elem = document.getElementsByClassName("selected")[1];
+        elem.appendChild(d);
+        Plotly.newPlot('myDiv', histData);
+    }
 }
