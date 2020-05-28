@@ -17,7 +17,8 @@
   "homepage": "https://bitbucket.org/terier/vpt#readme",
   "dependencies": {
     "d3": "^5.16.0",
-    "express": "latest"
+    "express": "latest",
+    "kmeans": "0.0.1"
   },
   "engines": {
     "node": "12.x"
