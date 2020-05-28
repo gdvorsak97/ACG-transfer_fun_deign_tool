@@ -106,6 +106,85 @@ readModality(modalityName, handlers) {
                     handlers.onLoad && handlers.onLoad();
                 }
                 let values = this.getValuesForHist(usedData)
+
+                const jarray = values.gradient.map(function (item, i) {
+                    return [item, values.scalar[i]];
+                });
+                console.log(jarray)
+                let peaks = [];
+                for (let i = 0;i< jarray.length;i++) {
+                    let is_peak = true
+                    let current = jarray[i]
+                    if (i <= 4) {
+                        for (let j = 0; j < 5; j++) {
+                            let compare = jarray[i + j]
+                            if (current[0] < compare[0] || current[1] < compare[1]) {
+                                is_peak = false
+                            }
+                            if (!is_peak) break;
+                        }
+                    } else if (i >= jarray.length - 5) {
+                        if (i > jarray.length - 5) continue;
+                        for (let j = 4;j>=0;j--){
+                            let compare = jarray[i+j]
+                            if (current[0] < compare[0] || current[1] < compare[1]){
+                                is_peak = false
+                            }
+                            if (!is_peak) break;
+                        }
+                    }
+                    else {
+                        for (let j = -3;j<=3;j++){
+                            let compare = jarray[i+j]
+                            if (current[0] < compare[0] || current[1] < compare[1]){
+                                is_peak = false
+                            }
+                            if (!is_peak) break;
+                        }
+                    }
+                    if (is_peak){
+                        peaks.push(jarray[i])
+                    }
+                }
+
+                let uniques = [];
+                let itemsFound = {};
+                for(let i = 0, l = peaks.length; i < l; i++) {
+                    let stringified = JSON.stringify(peaks[i]);
+                    if(itemsFound[stringified]) { continue; }
+                    uniques.push(peaks[i]);
+                    itemsFound[stringified] = true;
+                }
+                console.log(uniques)
+
+                let final = [uniques[0]]
+                let threshold_count = 200;
+                let threshold = 15;
+                let maxP = 3;
+                let to_push = [false];
+                let counts = new Array(maxP).fill(0);
+                for (let i = 1;i< uniques.length;i++){
+                    let fin_len = final.length
+                    for (let j = 0; j < fin_len;j++){
+                        to_push[j] = false
+                        if (Math.abs(uniques[i][0] - final[j][0]) >= threshold && Math.abs(uniques[i][1] - final[j][1]) >= threshold && fin_len + 1 <= maxP){
+                            to_push[j] = true
+                        } else if (Math.abs(uniques[i] - final[j]) < threshold || Math.abs(uniques[i][1] - final[j][1]) < threshold){
+                            counts[j] ++;
+                        }
+                    }
+                    if (!to_push.includes(false)){
+                        final.push(uniques[i])
+                        to_push.push(false)
+                    }
+                }
+                for (let i = 0;i<final.length;i++){
+                    if (counts[i] <= threshold_count){
+                        final.splice(final.indexOf(i),1)
+                    }
+                }
+                console.log(final)
+                console.log(counts)
                 this.addHistogram(values);
             }
         });
