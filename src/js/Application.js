@@ -69,6 +69,8 @@ constructor() {
     this._mainDialog.addEventListener('tonemapperchange', this._handleToneMapperChange);
     this._mainDialog.trigger('rendererchange', this._mainDialog.getSelectedRenderer());
     this._mainDialog.trigger('tonemapperchange', this._mainDialog.getSelectedToneMapper());
+
+    this.addTFDesignControl();
 }
 
 _handleFileDrop(e) {
@@ -185,4 +187,29 @@ _getDialogForToneMapper(toneMapper) {
     }
 }
 
+addTFDesignControl() {
+        let elements =document.getElementsByClassName("instantiate panel")
+        let el = elements[elements.length-1]
+        let n = document.createElement("div")
+        let d = document.createElement("BUTTON")
+        let t = document.createTextNode("Increase");
+        d.style.marginLeft = "50px";
+        d.appendChild(t)
+        d.setAttribute("id", "tfd-increase")
+        d.disabled = true
+        n.appendChild(d)
+
+        d = document.createElement("BUTTON")
+        t = document.createTextNode("Decrease");
+        d.style.marginLeft = "20px";
+        d.appendChild(t)
+        d.setAttribute("id", "tfd-decrease")
+        d.disabled = true
+        n.appendChild(d)
+
+        n.style.marginTop = "20px";
+        el.appendChild(n)
+
+
+}
 }

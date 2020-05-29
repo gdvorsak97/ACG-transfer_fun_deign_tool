@@ -137,7 +137,8 @@
                       "options": [
                         {
                           "value": "bs",
-                          "label": "Bump size"
+                          "label": "Bump size",
+                          "selected": true
                         }
                       ]
                     }

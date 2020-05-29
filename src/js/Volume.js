@@ -219,6 +219,46 @@ readModality(modalityName, handlers) {
                 }
                 //console.log(el)
                 CommonUtils.trigger("loadup", el)
+                let incr = document.getElementById("tfd-increase")
+                let decr =document.getElementById("tfd-decrease")
+                incr.disabled = false
+                decr.disabled = false
+                let number = 0.02
+                incr.addEventListener("click",() => {
+                    for (let i = 0;i<this.peaks.length;i++){
+                        bumps[i].size.x += number
+                        bumps[i].size.y += number
+                    }
+                    CommonUtils.setJson(bumps)
+
+                    let el
+                    let inputs = document.getElementsByTagName('input');
+                    for (let i = 0; i< inputs.length;i++){
+                        if (inputs[i].name === "add-bump"){
+                            el = inputs[i]
+                        }
+                    }
+                    CommonUtils.trigger("loadup", el)
+
+                })
+
+                decr.addEventListener("click",() => {
+                    for (let i = 0;i<this.peaks.length;i++){
+                        bumps[i].size.x -= number
+                        bumps[i].size.y -= number
+                    }
+                    CommonUtils.setJson(bumps)
+
+                    let el
+                    let inputs = document.getElementsByTagName('input');
+                    for (let i = 0; i< inputs.length;i++){
+                        if (inputs[i].name === "add-bump"){
+                            el = inputs[i]
+                        }
+                    }
+                    CommonUtils.trigger("loadup", el)
+
+                })
                 this.addHistogram(values);
             }
         });
