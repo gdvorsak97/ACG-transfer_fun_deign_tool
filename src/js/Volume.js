@@ -186,15 +186,39 @@ readModality(modalityName, handlers) {
                 let values = this.getValuesForHist(usedData)
 
                 this.peaks = this.getPeaksTF(values, 200, 150, 3, 5)
+
                 //console.log(this.peaks)
-                 let allInputs = document.getElementsByTagName("input");
-                let add_bump
-                for (let i = 0;i<allInputs.length;i++){
-                    if (allInputs[i].name === "add-bump"){
-                        add_bump = allInputs[i]
+                let bumps = []
+                for (let i = 0; i < this.peaks.length;i++){
+                    let newBump = {
+                        position: {
+                            x: this.peaks[i][0] /100,
+                            y: this.peaks[i][1] /100
+                        },
+                        size: {
+                            x: 0.2,
+                            y: 0.2
+                        },
+                        color: {
+                            r: 1,
+                            g: 0,
+                            b: 0,
+                            a: 1
+                        }
+                    };
+                    bumps.push(newBump)
+                }
+                CommonUtils.setJson(bumps)
+
+                let el
+                let inputs = document.getElementsByTagName('input');
+                for (let i = 0; i< inputs.length;i++){
+                    if (inputs[i].name === "add-bump"){
+                      el = inputs[i]
                     }
                 }
-                CommonUtils.trigger("click", add_bump)
+                //console.log(el)
+                CommonUtils.trigger("loadup", el)
                 this.addHistogram(values);
             }
         });

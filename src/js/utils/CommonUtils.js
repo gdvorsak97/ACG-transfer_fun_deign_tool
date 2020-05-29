@@ -1,6 +1,19 @@
 // #package js/main
 
 class CommonUtils {
+    constructor() {
+        this.json = null
+    }
+
+
+static getJson(){
+    return this.json
+}
+
+static setJson(json){
+    this.json = (JSON.stringify(json))
+
+}
 
 static noop() {
 }
@@ -38,6 +51,18 @@ static readTextFile(onLoad, onError) {
         reader.readAsText(input.files[0]);
     });
     input.click();
+}
+
+static readTextFileAuto(file, callback) {
+    var rawFile = new XMLHttpRequest();
+    rawFile.overrideMimeType("application/json");
+    rawFile.open("GET", file, true);
+    rawFile.onreadystatechange = function() {
+        if (rawFile.readyState === 4 && rawFile.status === 200) {
+            callback(rawFile.responseText);
+        }
+    }
+    rawFile.send(null);
 }
 
 static trigger(event, element) {

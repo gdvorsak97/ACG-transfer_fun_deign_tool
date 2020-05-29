@@ -78,24 +78,13 @@ constructor(options) {
         CommonUtils.downloadJSON(this._bumps, 'TransferFunction.json');
     });
 
-    /*this.addBump(
-          {
-            position: {
-                x: 0.5,
-                y: 0.5
-            },
-            size: {
-                x: 0.2,
-                y: 0.2
-            },
-            color: {
-                r: 0,
-                g: 1,
-                b: 0,
-                a: 1
-            }
-        }
-    )*/
+    this._$addBumpButton.addEventListener("loadup", () => {
+        let data = CommonUtils.getJson()
+        this._bumps = JSON.parse(data);
+        this.render();
+        this._rebuildHandles();
+        this.trigger('change');
+        });
 
 }
 
