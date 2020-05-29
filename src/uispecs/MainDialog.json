@@ -119,6 +119,33 @@
         "About": {
           "type": "panel",
           "bind": "about"
+        },
+        "TF Design": {
+          "type": "panel",
+          "children": [
+            {
+              "type": "accordion",
+              "label": "Parameter select",
+              "children": [
+                {
+                  "type": "field",
+                  "label": "Parameter",
+                  "children": [
+                    {
+                      "type": "dropdown",
+                      "bind": "paramSelect",
+                      "options": [
+                        {
+                          "value": "bs",
+                          "label": "Bump size"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         }
       }
     }

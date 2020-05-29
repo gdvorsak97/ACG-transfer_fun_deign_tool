@@ -94,6 +94,7 @@ constructor(gl, reader, options) {
     this.modalities = null;
     this.blocks     = null;
     this._texture   = null;
+    this.peaks = null
 }
 
 getValuesForHist(data) {
@@ -184,8 +185,16 @@ readModality(modalityName, handlers) {
                 }
                 let values = this.getValuesForHist(usedData)
 
-                let peaks = this.getPeaksTF(values, 200, 150, 3, 5)
-                console.log(peaks)
+                this.peaks = this.getPeaksTF(values, 200, 150, 3, 5)
+                //console.log(this.peaks)
+                 let allInputs = document.getElementsByTagName("input");
+                let add_bump
+                for (let i = 0;i<allInputs.length;i++){
+                    if (allInputs[i].name === "add-bump"){
+                        add_bump = allInputs[i]
+                    }
+                }
+                CommonUtils.trigger("click", add_bump)
                 this.addHistogram(values);
             }
         });
@@ -198,6 +207,10 @@ getTexture() {
     } else {
         return null;
     }
+}
+
+getPraks(){
+    return this.peaks
 }
 
 setFilter(filter) {

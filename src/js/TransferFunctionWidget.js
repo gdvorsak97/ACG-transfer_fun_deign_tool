@@ -77,6 +77,26 @@ constructor(options) {
     this._$saveButton.addEventListener('click', () => {
         CommonUtils.downloadJSON(this._bumps, 'TransferFunction.json');
     });
+
+    /*this.addBump(
+          {
+            position: {
+                x: 0.5,
+                y: 0.5
+            },
+            size: {
+                x: 0.2,
+                y: 0.2
+            },
+            color: {
+                r: 0,
+                g: 1,
+                b: 0,
+                a: 1
+            }
+        }
+    )*/
+
 }
 
 destroy() {
@@ -117,22 +137,27 @@ render() {
 
 addBump(options) {
     const bumpIndex = this._bumps.length;
-    const newBump = {
-        position: {
-            x: 0.5,
-            y: 0.5
-        },
-        size: {
-            x: 0.2,
-            y: 0.2
-        },
-        color: {
-            r: 1,
-            g: 0,
-            b: 0,
-            a: 1
-        }
-    };
+    let newBump
+    if (options)  newBump = options
+    else {
+        newBump = {
+            position: {
+                x: 0.5,
+                y: 0.5
+            },
+            size: {
+                x: 0.2,
+                y: 0.2
+            },
+            color: {
+                r: 1,
+                g: 0,
+                b: 0,
+                a: 1
+            }
+        };
+    }
+
     this._bumps.push(newBump);
     this._addHandle(bumpIndex);
     this.selectBump(bumpIndex);
