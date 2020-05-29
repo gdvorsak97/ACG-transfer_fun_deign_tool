@@ -186,8 +186,8 @@ readModality(modalityName, handlers) {
                 let values = this.getValuesForHist(usedData)
 
                 this.peaks = this.getPeaksTF(values, 200, 150, 3, 5)
+                let rgb = [[1, 0, 0], [0, 1, 0], [0, 0, 1], [1, 0, 1], [1, 1, 0], [0, 1, 1]]
 
-                //console.log(this.peaks)
                 let bumps = []
                 for (let i = 0; i < this.peaks.length;i++){
                     let newBump = {
@@ -200,9 +200,9 @@ readModality(modalityName, handlers) {
                             y: 0.2
                         },
                         color: {
-                            r: 1,
-                            g: 0,
-                            b: 0,
+                            r: rgb[i%6][0],
+                            g: rgb[i%6][1],
+                            b: rgb[i%6][2],
                             a: 1
                         }
                     };
